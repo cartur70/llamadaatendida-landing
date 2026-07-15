@@ -1,0 +1,84 @@
+---
+import { footerNavigation } from '../../config/footerNavigation';
+import { socialLinks } from '../../config/socialLinks';
+import { Icon } from 'astro-icon/components';
+---
+
+<footer class="bg-gray-900 text-gray-400 pt-16 pb-8">
+  <div class="max-w-7xl mx-auto px-6 md:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+      
+      <!-- Brand & Social -->
+      <div class="flex flex-col gap-6">
+        <a href="/" class="flex items-center" aria-label="Inicio">
+           <span class="text-2xl font-extrabold text-white">Llamada<span class="text-accent">Atendida</span></span>
+        </a>
+        <p class="text-sm max-w-[280px]">
+          Contact Center profesional con IA y equipo humano especializado. Pago por uso, sin costes fijos.
+        </p>
+        <div class="flex items-center gap-4 mt-2">
+          {socialLinks.map(link => (
+            <a href={link.href} class="text-gray-400 hover:text-white transition-colors" aria-label={link.name}>
+              <!-- Temporary SVG placeholder for icon -->
+              <span class="w-6 h-6 inline-flex justify-center items-center border border-gray-600 rounded-full text-xs">#</span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Product -->
+      <div>
+        <h3 class="text-white font-semibold uppercase tracking-wide mb-4 text-sm">Producto</h3>
+        <ul class="flex flex-col gap-3">
+          {footerNavigation.product.map(link => (
+            <li>
+              <a href={link.href} target={link.external ? "_blank" : "_self"} rel={link.external ? "noopener noreferrer" : ""} class="text-sm hover:text-white transition-colors">
+                {link.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Company -->
+      <div>
+        <h3 class="text-white font-semibold uppercase tracking-wide mb-4 text-sm">Empresa</h3>
+        <ul class="flex flex-col gap-3">
+          {footerNavigation.company.map(link => (
+            <li><a href={link.href} class="text-sm hover:text-white transition-colors">{link.name}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Legal -->
+      <div>
+        <h3 class="text-white font-semibold uppercase tracking-wide mb-4 text-sm">Legal</h3>
+        <ul class="flex flex-col gap-3">
+          {footerNavigation.legal.map(link => (
+            <li><a href={link.href} class="text-sm hover:text-white transition-colors">{link.name}</a></li>
+          ))}
+        </ul>
+      </div>
+      
+    </div>
+
+    <!-- Contact Quick Info -->
+    <div class="flex flex-col md:flex-row gap-6 mb-12 py-6 border-y border-gray-800 text-sm">
+      <div class="flex items-center gap-2">
+        <span class="text-primary">@</span> hola@llamadaatendida.com
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="text-primary">☎</span> +34 910 971 537
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="text-primary">📍</span> Calle Concepción Arenal 1, 1ºA, 28924 Alcorcón, Madrid
+      </div>
+    </div>
+
+    <!-- Bottom -->
+    <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-[13px] text-gray-500">
+      <p>© {new Date().getFullYear()} LlamadaAtendida. Todos los derechos reservados.</p>
+      <p>Diseñado con ❤️ en Madrid</p>
+    </div>
+  </div>
+</footer>

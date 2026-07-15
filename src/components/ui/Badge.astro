@@ -1,0 +1,18 @@
+---
+interface Props {
+  variant?: 'default' | 'success';
+  class?: string;
+}
+
+const { variant = 'default', class: className = '' } = Astro.props;
+
+const baseStyles = "inline-flex items-center gap-2 px-3 py-1.5 rounded-full border";
+const variants = {
+  default: "bg-accent/15 border-accent/20 text-accent-dark",
+  success: "bg-success/20 border-success/30 text-success"
+};
+---
+
+<div class={`${baseStyles} ${variants[variant]} ${className}`}>
+  <span class="text-sm font-semibold"><slot /></span>
+</div>

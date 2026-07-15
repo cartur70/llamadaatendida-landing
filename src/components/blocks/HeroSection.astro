@@ -1,0 +1,60 @@
+---
+import { Image } from 'astro:assets';
+import Badge from '../ui/Badge.astro';
+import Button from '../ui/Button.astro';
+---
+
+<section class="relative pt-[120px] pb-20 max-md:pt-20 max-md:pb-12 overflow-hidden bg-gradient-to-b from-tertiary/30 to-white">
+  <div class="max-w-7xl mx-auto px-6 md:px-8">
+    <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+      
+      <!-- Contenido Izquierda -->
+      <div class="w-full lg:w-[55%] flex flex-col items-start text-left">
+        <div class="animate-fade-in-down mb-6">
+          <Badge>🚀 Nuevo: Agentes de IA integrados</Badge>
+        </div>
+        
+        <h1 class="animate-slide-up [animation-delay:100ms] opacity-0 [animation-fill-mode:forwards] text-[36px] md:text-[56px] font-extrabold text-gray-900 leading-[1.1] mb-6">
+          El Contact Center del futuro: <span class="text-primary">Inteligencia Artificial y agentes humanos</span> integrados a tu medida.
+        </h1>
+        
+        <p class="animate-slide-up [animation-delay:200ms] opacity-0 [animation-fill-mode:forwards] text-lg text-gray-600 leading-relaxed mb-8 max-w-[640px]">
+          Optimiza tu atención al cliente, automatiza con Agentes IA y chatbots de WhatsApp, y delega en un equipo profesional. Todo bajo un sistema flexible de pago por uso y sin costes fijos.
+        </p>
+        
+        <div class="animate-slide-up [animation-delay:300ms] opacity-0 [animation-fill-mode:forwards] flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+          <Button href="#comparador" variant="primary" class="w-full sm:w-auto">
+            Calcula tu Ahorro Ahora
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+          </Button>
+          <Button href="#como-funciona" variant="outline" class="w-full sm:w-auto">
+            Ver Cómo Funciona
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          </Button>
+        </div>
+      </div>
+
+      <!-- Imagen Derecha -->
+      <div class="w-full lg:w-[45%] animate-slide-left [animation-delay:200ms] opacity-0 [animation-fill-mode:forwards]">
+        <!-- Placeholder para hero-ia-humanos.svg o jpg -->
+        <div class="aspect-[5/4] bg-gray-100 rounded-3xl border border-gray-200 flex items-center justify-center text-gray-400 drop-shadow-xl overflow-hidden">
+           <!-- Fallback si la imagen no existe aún -->
+           <img src="/images/hero-contact-center.jpg" alt="Agentes de IA y equipo humano" class="w-full h-full object-cover" onerror="this.style.display='none'" />
+           <span class="absolute">Imágen Hero (src/assets/illustrations/hero-ia-humanos.svg)</span>
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- Trust Signals -->
+    <div class="animate-fade-in [animation-delay:500ms] opacity-0 [animation-fill-mode:forwards] mt-16 pt-8 border-t border-gray-100 flex flex-col items-center">
+      <p class="text-sm font-medium text-gray-400 uppercase tracking-wider mb-6">Empresas que ya confían en nosotros</p>
+      <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 hover:opacity-100 transition-opacity">
+        <div class="h-8 bg-gray-300 w-24 rounded"></div>
+        <div class="h-8 bg-gray-300 w-24 rounded"></div>
+        <div class="h-8 bg-gray-300 w-24 rounded"></div>
+        <div class="h-8 bg-gray-300 w-24 rounded"></div>
+      </div>
+    </div>
+  </div>
+</section>

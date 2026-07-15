@@ -1,0 +1,80 @@
+---
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/700.css';
+import '@fontsource/inter/800.css';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalUrl?: string;
+  ogImage?: string;
+  schema?: Record<string, any>;
+}
+
+const {
+  title,
+  description,
+  canonicalUrl = Astro.url.href,
+  ogImage = new URL('/og-image.jpg', Astro.url).href,
+  schema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "LlamadaAtendida",
+    "url": "https://llamadaatendida.com",
+    "logo": "https://llamadaatendida.com/logo.svg",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+34-910-971-537",
+      "contactType": "customer service",
+      "availableLanguage": "Spanish"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Calle Concepción Arenal 1, 1ºA",
+      "addressLocality": "Alcorcón",
+      "postalCode": "28924",
+      "addressRegion": "Madrid",
+      "addressCountry": "ES"
+    }
+  }
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es-ES" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <title>{title} | LlamadaAtendida</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:site_name" content="LlamadaAtendida" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  </head>
+  <body class="bg-white text-gray-600 font-sans antialiased selection:bg-primary/20 selection:text-primary-dark">
+    <slot />
+  </body>
+</html>

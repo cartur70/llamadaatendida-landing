@@ -1,0 +1,90 @@
+---
+import SectionHeader from '../ui/SectionHeader.astro';
+import Button from '../ui/Button.astro';
+---
+
+<section id="como-funciona" class="py-24 bg-gray-50 overflow-hidden">
+  <div class="max-w-[1000px] mx-auto px-6">
+    
+    <SectionHeader 
+      title="Tu Contact Center listo en 4 sencillos pasos"
+      subtitle="En menos de 48 horas, tu negocio estará atendido por profesionales. Sin complicaciones, sin costes ocultos."
+    />
+
+    <div class="relative mt-20 mb-16">
+      <!-- Línea conectora (Desktop) -->
+      <div class="hidden md:block absolute top-6 left-[10%] right-[10%] h-[2px] bg-primary/30 z-0">
+         <div id="connector-line" class="h-full bg-primary w-0 transition-all duration-1000 ease-out"></div>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-4 relative z-10">
+        
+        <!-- Paso 1 -->
+        <div class="flex flex-col items-center text-center animate-slide-up opacity-0" data-intersect-step>
+          <div class="w-14 h-14 rounded-full bg-primary text-white font-bold text-xl flex items-center justify-center mb-6 shadow-lg shadow-primary/20 ring-4 ring-gray-50 relative">
+             1
+          </div>
+          <h4 class="text-lg font-bold text-gray-900 mb-2">Configura tus instrucciones</h4>
+          <p class="text-gray-600 text-sm">Desde tu área privada nos indicas cómo quieres que respondamos y tus objetivos. Tú mandas.</p>
+        </div>
+
+        <!-- Paso 2 -->
+        <div class="flex flex-col items-center text-center animate-slide-up [animation-delay:150ms] opacity-0" data-intersect-step>
+          <div class="w-14 h-14 rounded-full bg-primary text-white font-bold text-xl flex items-center justify-center mb-6 shadow-lg shadow-primary/20 ring-4 ring-gray-50 relative">
+             2
+          </div>
+          <h4 class="text-lg font-bold text-gray-900 mb-2">Activamos la tecnología</h4>
+          <p class="text-gray-600 text-sm">Configuramos tus agentes de IA, flujos de WhatsApp y te asignamos un número de desvío.</p>
+        </div>
+
+        <!-- Paso 3 -->
+        <div class="flex flex-col items-center text-center animate-slide-up [animation-delay:300ms] opacity-0" data-intersect-step>
+          <div class="w-14 h-14 rounded-full bg-primary text-white font-bold text-xl flex items-center justify-center mb-6 shadow-lg shadow-primary/20 ring-4 ring-gray-50 relative">
+             3
+          </div>
+          <h4 class="text-lg font-bold text-gray-900 mb-2">Formamos al equipo</h4>
+          <p class="text-gray-600 text-sm">Sincronizamos tus instrucciones con nuestro equipo humano para garantizar la máxima calidad.</p>
+        </div>
+
+        <!-- Paso 4 -->
+        <div class="flex flex-col items-center text-center animate-slide-up [animation-delay:450ms] opacity-0" data-intersect-step>
+          <div class="w-14 h-14 rounded-full bg-primary text-white font-bold text-xl flex items-center justify-center mb-6 shadow-lg shadow-primary/20 ring-4 ring-gray-50 relative">
+             4
+          </div>
+          <h4 class="text-lg font-bold text-gray-900 mb-2">Atendemos por ti</h4>
+          <p class="text-gray-600 text-sm">Empezamos a gestionar tus canales. Recibe reportes en tiempo real y relájate.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="text-center">
+      <Button href="/contacto" variant="primary" class="!px-8 !py-4 text-lg">Empezar ahora</Button>
+    </div>
+  </div>
+</section>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('[animation-fill-mode:forwards]');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('[data-intersect-step]').forEach((el) => observer.observe(el));
+
+  // Connector line animation
+  const lineObserver = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      const line = document.getElementById('connector-line');
+      if (line) line.style.width = '100%';
+      lineObserver.disconnect();
+    }
+  }, { threshold: 0.5 });
+  
+  const container = document.querySelector('#como-funciona .grid');
+  if (container) lineObserver.observe(container);
+</script>

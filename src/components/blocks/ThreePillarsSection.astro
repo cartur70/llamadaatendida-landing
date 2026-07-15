@@ -1,0 +1,64 @@
+---
+import SectionHeader from '../ui/SectionHeader.astro';
+import Card from '../ui/Card.astro';
+---
+
+<section class="py-24 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-6 md:px-8">
+    
+    <SectionHeader 
+      title="Omnicanalidad inteligente para que no pierdas ninguna venta"
+      subtitle="Combina la potencia de la Inteligencia Artificial con el toque humano de nuestros agentes especializados. Un sistema único que cubre todos tus canales de comunicación."
+    />
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      
+      <!-- Card 1 -->
+      <Card class="flex flex-col items-start animate-slide-up [animation-delay:150ms] opacity-0" data-intersect>
+        <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-6 text-primary">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
+        </div>
+        <h3 class="text-[22px] font-semibold text-gray-800 mb-3">Agentes de IA (Voz y Chat)</h3>
+        <p class="text-gray-600 leading-relaxed">
+          Automatización 24/7. Respuestas inmediatas a dudas frecuentes, filtrado de llamadas y atención instantánea sin tiempos de espera.
+        </p>
+      </Card>
+
+      <!-- Card 2 -->
+      <Card class="flex flex-col items-start animate-slide-up [animation-delay:300ms] opacity-0" data-intersect>
+        <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-6 text-primary">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+        </div>
+        <h3 class="text-[22px] font-semibold text-gray-800 mb-3">WhatsApp Chatbots</h3>
+        <p class="text-gray-600 leading-relaxed">
+          El canal favorito de tus clientes, automatizado. Captación de leads, respuestas automáticas y agendamiento de citas en tiempo real.
+        </p>
+      </Card>
+
+      <!-- Card 3 -->
+      <Card class="flex flex-col items-start animate-slide-up [animation-delay:450ms] opacity-0" data-intersect>
+        <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-6 text-primary">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+        </div>
+        <h3 class="text-[22px] font-semibold text-gray-800 mb-3">Equipo Humano Especializado</h3>
+        <p class="text-gray-600 leading-relaxed">
+          Empatía y resolución. Profesionales formados con tus instrucciones que intervienen en los casos complejos, cierran ventas y atienden con tu saludo.
+        </p>
+      </Card>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('[animation-fill-mode:forwards]');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('[data-intersect]').forEach((el) => observer.observe(el));
+</script>

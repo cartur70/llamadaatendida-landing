@@ -1,0 +1,33 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/blocks/Navbar.astro';
+import Footer from '../components/blocks/Footer.astro';
+import HeroSection from '../components/blocks/HeroSection.astro';
+import ThreePillarsSection from '../components/blocks/ThreePillarsSection.astro';
+import CostComparatorSection from '../components/blocks/CostComparatorSection.astro';
+import ServicesSection from '../components/blocks/ServicesSection.astro';
+import LegalComplianceSection from '../components/blocks/LegalComplianceSection.astro';
+import HowItWorksSection from '../components/blocks/HowItWorksSection.astro';
+import TestimonialsSection from '../components/blocks/TestimonialsSection.astro';
+import CTASection from '../components/blocks/CTASection.astro';
+---
+
+<Layout 
+  title="Inicio" 
+  description="Contact Center profesional con IA y equipo humano especializado. Pago por uso, sin costes fijos. Delega tus llamadas, correos y chat."
+>
+  <Navbar />
+  
+  <main>
+    <HeroSection />
+    <ThreePillarsSection />
+    <CostComparatorSection />
+    <ServicesSection />
+    <LegalComplianceSection />
+    <HowItWorksSection />
+    <TestimonialsSection />
+    <CTASection />
+  </main>
+  
+  <Footer />
+</Layout>

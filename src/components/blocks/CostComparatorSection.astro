@@ -1,0 +1,151 @@
+---
+import Button from '../ui/Button.astro';
+---
+<section id="comparador" class="py-24 bg-tertiary">
+  <div class="max-w-[1000px] mx-auto px-6">
+    <div class="text-center mb-12">
+      <h2 class="text-[28px] md:text-[40px] font-bold text-gray-900 mb-4">¿Cuánto te cuesta un recepcionista interno vs. LlamadaAtendida?</h2>
+      <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+        Mantener un equipo interno implica nóminas, bajas, vacaciones, herramientas y espacio. Con nuestro sistema de pago por uso, pasas de un coste fijo rígido a un coste variable optimizado. Solo pagas por los minutos reales que consumes.
+      </p>
+    </div>
+
+    <cost-comparator class="block bg-white p-6 md:p-10 rounded-2xl border border-gray-100 shadow-sm opacity-0 translate-y-10 transition-all duration-700" data-intersect-fade>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+        
+        <!-- Controles -->
+        <div class="flex flex-col gap-6">
+          <div>
+            <label class="flex justify-between text-sm font-semibold text-gray-800 mb-2">
+              <span>Llamadas al mes</span>
+              <span id="val-calls" class="text-primary font-bold text-lg">500</span>
+            </label>
+            <input type="range" id="input-calls" min="100" max="5000" step="100" value="500" class="w-full accent-primary h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" />
+          </div>
+          
+          <div>
+            <label class="flex justify-between text-sm font-semibold text-gray-800 mb-2">
+              <span>Duración media (min)</span>
+              <span id="val-duration" class="text-primary font-bold text-lg">3</span>
+            </label>
+            <input type="range" id="input-duration" min="1" max="10" step="0.5" value="3" class="w-full accent-primary h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" />
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-gray-800 mb-2">
+              Coste mensual recepcionista interno (€)
+            </label>
+            <input type="number" id="input-cost" min="800" max="3000" value="1500" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-gray-900 font-medium focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" />
+          </div>
+        </div>
+
+        <!-- Resultados -->
+        <div class="flex flex-col justify-end border-t md:border-t-0 md:border-l border-gray-100 pt-6 md:pt-0 md:pl-10 relative">
+          
+          <div class="mb-5">
+            <span class="text-xs text-gray-500 font-medium uppercase tracking-wider mb-1.5 block">Recepcionista Interno</span>
+            <div class="flex items-center gap-3">
+              <div class="h-8 bg-danger rounded-r-md transition-all duration-700 ease-out" style="width: 100%;"></div>
+              <span id="res-internal" class="text-xl font-bold text-gray-900 whitespace-nowrap">1500 €</span>
+            </div>
+          </div>
+
+          <div class="mb-8">
+            <span class="text-xs text-gray-500 font-medium uppercase tracking-wider mb-1.5 block">LlamadaAtendida</span>
+            <div class="flex items-center gap-3">
+              <div id="bar-la" class="h-8 bg-success rounded-r-md transition-all duration-700 ease-out w-0"></div>
+              <span id="res-la" class="text-xl font-bold text-gray-900 whitespace-nowrap">675 €</span>
+            </div>
+            <span class="text-xs text-gray-400 mt-2 block">*Basado en tarifa estimada de 0.45€/minuto aprox.</span>
+          </div>
+
+          <div class="bg-accent/15 rounded-xl p-5 text-center border border-accent/20">
+            <p class="text-sm font-medium text-gray-600 mb-1">Tu ahorro mensual estimado</p>
+            <p id="res-savings" class="text-4xl font-extrabold text-accent-dark tracking-tight">825 €</p>
+            <p id="res-percentage" class="text-sm font-bold text-success mt-2">¡55% más económico!</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-12 text-center">
+        <p class="inline-flex items-center justify-center font-semibold text-lg md:text-xl text-primary mb-6">
+          <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+          Reduce tus costes operativos hasta en un 60% manteniendo una disponibilidad total.
+        </p>
+        <br />
+        <Button href="/contacto" variant="accent">
+          Quiero empezar a ahorrar
+        </Button>
+      </div>
+    </cost-comparator>
+  </div>
+</section>
+
+<script>
+  class CostComparator extends HTMLElement {
+    constructor() {
+      super();
+      
+      const calls = this.querySelector('#input-calls') as HTMLInputElement;
+      const duration = this.querySelector('#input-duration') as HTMLInputElement;
+      const internalCost = this.querySelector('#input-cost') as HTMLInputElement;
+      
+      const valCalls = this.querySelector('#val-calls');
+      const valDuration = this.querySelector('#val-duration');
+      
+      const resInternal = this.querySelector('#res-internal');
+      const resLA = this.querySelector('#res-la');
+      const resSavings = this.querySelector('#res-savings');
+      const resPercentage = this.querySelector('#res-percentage');
+      const barLA = this.querySelector('#bar-la') as HTMLElement;
+
+      const TARIFA_MIN = 0.45;
+
+      const updateValues = () => {
+        const c = parseInt(calls.value);
+        const d = parseFloat(duration.value);
+        const internal = parseInt(internalCost.value);
+        
+        if (valCalls) valCalls.textContent = calls.value;
+        if (valDuration) valDuration.textContent = duration.value;
+
+        const costLA = c * d * TARIFA_MIN;
+        const savings = internal - costLA;
+        const perc = ((savings / internal) * 100).toFixed(0);
+        
+        const safeCostLA = Math.max(0, costLA);
+        const barWidth = Math.min(100, Math.max(5, (safeCostLA / internal) * 100));
+
+        if (resInternal) resInternal.textContent = `${internal} €`;
+        if (resLA) resLA.textContent = `${Math.round(safeCostLA)} €`;
+        if (resSavings) resSavings.textContent = `${Math.round(savings > 0 ? savings : 0)} €`;
+        if (resPercentage) {
+          resPercentage.textContent = savings > 0 ? `¡${perc}% más económico!` : 'Coste similar o superior';
+          resPercentage.className = savings > 0 ? 'text-sm font-bold text-success mt-2' : 'text-sm font-bold text-danger mt-2';
+        }
+        
+        if (barLA) barLA.style.width = `${barWidth}%`;
+      };
+
+      calls.addEventListener('input', updateValues);
+      duration.addEventListener('input', updateValues);
+      internalCost.addEventListener('input', updateValues);
+      
+      // Setup intersection observer for fade-in
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.remove('opacity-0', 'translate-y-10');
+            // Init bar animation after revealing
+            setTimeout(updateValues, 300);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      
+      observer.observe(this);
+    }
+  }
+
+  customElements.define('cost-comparator', CostComparator);
+</script>

@@ -1,0 +1,91 @@
+---
+import Button from '../ui/Button.astro';
+---
+<div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm max-w-xl mx-auto w-full relative z-10">
+  <form id="contact-form" class="space-y-5" aria-label="Formulario de contacto" data-netlify="true" name="contacto">
+    <div id="form-alert" class="hidden rounded-lg p-4 mb-4 text-sm font-medium" role="alert"></div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div>
+        <label for="nombre" class="block text-sm font-medium text-gray-700 mb-1">Nombre *</label>
+        <input type="text" id="nombre" name="nombre" required 
+          class="w-full bg-white border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary-light/20 transition-all" 
+          placeholder="Tu nombre" />
+      </div>
+      <div>
+        <label for="telefono" class="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
+        <input type="tel" id="telefono" name="telefono" 
+          class="w-full bg-white border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary-light/20 transition-all" 
+          placeholder="+34 600 000 000" />
+      </div>
+    </div>
+    
+    <div>
+      <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email corporativo *</label>
+      <input type="email" id="email" name="email" required 
+        class="w-full bg-white border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary-light/20 transition-all" 
+        placeholder="nombre@tuempresa.com" />
+    </div>
+
+    <div>
+      <label for="mensaje" class="block text-sm font-medium text-gray-700 mb-1">¿Cómo podemos ayudarte? *</label>
+      <textarea id="mensaje" name="mensaje" rows="4" required 
+        class="w-full bg-white border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary-light/20 transition-all resize-none" 
+        placeholder="Cuéntanos brevemente sobre tus necesidades..."></textarea>
+    </div>
+
+    <Button type="submit" id="btn-submit" variant="accent" class="w-full mt-2">
+      <span id="btn-text">Enviar Mensaje</span>
+      <svg id="spinner" class="animate-spin ml-2 h-5 w-5 text-gray-900 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+    </Button>
+    <p class="text-xs text-gray-400 text-center mt-3">Al enviar este formulario aceptas nuestra <a href="/politica-privacidad" class="underline hover:text-gray-600">Política de Privacidad</a>.</p>
+  </form>
+</div>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const btnSubmit = document.getElementById('btn-submit') as HTMLButtonElement;
+  const spinner = document.getElementById('spinner');
+  const alertBox = document.getElementById('form-alert');
+
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData);
+      
+      if(btnSubmit) btnSubmit.disabled = true;
+      if (spinner) spinner.classList.remove('hidden');
+      if (alertBox) alertBox.classList.add('hidden');
+
+      try {
+        const response = await fetch('http://localhost/llamadaatendida-backend/api/contacto', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (!response.ok) throw new Error('Error en el envío');
+        
+        if (alertBox) {
+          alertBox.textContent = 'Mensaje enviado correctamente. Nos pondremos en contacto pronto.';
+          alertBox.className = 'rounded-lg p-4 mb-4 text-sm font-medium bg-success/20 text-success block';
+        }
+        form.reset();
+        
+      } catch (error) {
+        if (alertBox) {
+          alertBox.textContent = 'Ocurrió un error al enviar el mensaje. Por favor, intenta de nuevo.';
+          alertBox.className = 'rounded-lg p-4 mb-4 text-sm font-medium bg-danger/20 text-danger block';
+        }
+      } finally {
+        if(btnSubmit) btnSubmit.disabled = false;
+        if (spinner) spinner.classList.add('hidden');
+      }
+    });
+  }
+</script>
