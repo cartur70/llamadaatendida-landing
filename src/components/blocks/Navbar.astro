@@ -1,21 +1,23 @@
 ---
 import { navigation } from '../../config/navigationBar';
 import Button from '../ui/Button.astro';
+import logo from '../../../public/logo.webp';
 ---
 
 <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent py-4">
   <div class="max-w-7xl mx-auto px-6 md:px-8 flex justify-between items-center">
-    
+
     <!-- Logo -->
-    <a href="/" class="flex items-center" aria-label="Inicio LlamadaAtendida">
+    <a href="/" class="flex items-center pt-2" aria-label="Inicio LlamadaAtendida">
       <!-- Replace with actual SVG logo if available, or text fallback -->
-      <span class="text-2xl font-extrabold text-primary">Llamada<span class="text-accent">Atendida</span></span>
+      <img src={logo.src} alt="Mi Logo" width="150" height="50" />
+      <!-- <span class="text-2xl font-extrabold text-primary">Llamada<span class="text-accent">Atendida</span></span> -->
     </a>
 
     <!-- Desktop Nav -->
     <nav class="hidden lg:flex items-center gap-8">
       {navigation.map((item) => (
-        <a href={item.href} class="text-gray-700 hover:text-primary font-medium transition-colors">
+        <a href={item.href} class="text-gray-700 hover:text-[var(--color-primary)] font-medium text-sm transition-colors">
           {item.name}
         </a>
       ))}
@@ -23,7 +25,7 @@ import Button from '../ui/Button.astro';
 
     <!-- Desktop CTA & Theme Toggle (Placeholder) -->
     <div class="hidden lg:flex items-center gap-4">
-      <Button href="/contacto" variant="primary" class="!px-5 !py-2.5 text-sm">Hablar con un asesor</Button>
+      <Button href="/contacto" variant="header" class="!px-5 !py-2.5 text-sm">Hablar con un asesor</Button>
     </div>
 
     <!-- Mobile Menu Button -->
@@ -33,14 +35,14 @@ import Button from '../ui/Button.astro';
       </svg>
     </button>
   </div>
-  
+
   <!-- Mobile Menu Overlay -->
   <div id="mobile-menu" class="fixed inset-0 bg-white z-40 hidden flex-col pt-24 px-6 pb-8 h-screen w-full transition-all">
     <div class="flex flex-col gap-6 text-lg font-medium">
       {navigation.map((item) => (
         <a href={item.href} class="text-gray-900 border-b border-gray-100 pb-4">{item.name}</a>
       ))}
-      <a href="/contacto" class="text-primary border-b border-gray-100 pb-4">Contacto</a>
+      <a href="/contacto" class="text-[var(--color-primary)] border-b border-gray-100 pb-4">Contacto</a>
       <Button href="/contacto" variant="accent" class="mt-4 w-full">Hablar con un asesor</Button>
     </div>
   </div>

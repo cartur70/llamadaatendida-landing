@@ -1,7 +1,7 @@
 ---
 interface Props {
   href?: string;
-  variant?: 'primary' | 'accent' | 'outline' | 'white-outline';
+  variant?: 'header' | 'primary' | 'accent' | 'outline' | 'white-outline';
   class?: string;
   id?: string;
   type?: 'button' | 'submit' | 'reset';
@@ -9,12 +9,13 @@ interface Props {
 
 const { href, variant = 'primary', class: className = '', id, type } = Astro.props;
 
-const baseStyles = "inline-flex justify-center items-center gap-2 rounded-lg font-semibold transition-all";
+const baseStyles = "inline-flex justify-center items-center gap-2 rounded-full font-semibold transition-all duration-300 border-2";
 const variants = {
-  primary: "bg-primary hover:bg-primary-dark text-white px-7 py-3.5 shadow-md hover:shadow-lg hover:scale-[1.02]",
-  accent: "bg-accent hover:bg-accent-dark text-gray-900 px-8 py-3.5 font-bold shadow-[0_4px_14px_rgba(255,183,0,0.3)]",
-  outline: "bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white px-6 py-3",
-  'white-outline': "bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary px-6 py-3"
+  header: "bg-[var(--color-primary)] border-[var(--color-primary)] text-white hover:bg-transparent hover:text-[var(--color-primary)]",
+  primary: "bg-transparent border-[var(--color-primary)] text-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white",
+  accent: "bg-[var(--color-accent)] border-[var(--color-accent)] text-gray-900 hover:bg-[#e6a500] hover:border-[#e6a500] shadow-[0_4px_14px_rgba(255,183,0,0.3)]",
+  outline: "bg-transparent border-[var(--color-primary)] text-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white",
+  'white-outline': "bg-transparent border-white text-white hover:bg-white hover:text-[var(--color-primary)]"
 };
 
 const Tag = href ? 'a' : 'button';
