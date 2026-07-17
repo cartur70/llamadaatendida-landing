@@ -56,7 +56,7 @@ import Button from '../ui/Button.astro';
           <!-- Primer grupo de logos -->
           {['logo_descuelgo.webp', 'logo_dialgoo.webp', 'logo_mejora_tu_experiencia.webp', 'logo_parada_visual.webp', 'logo_troncalVOIP.webp'].map((logo) => (
             <div class="flex-shrink-0 flex items-center justify-center w-32">
-              <img src={`/tree/main/public/images/client-logos/${logo}`} alt="Cliente LlamadaAtendida" class="h-8 w-auto max-w-[120px] object-contain opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+              <img src={`public/images/client-logos/${logo}`} alt="Cliente LlamadaAtendida" class="h-8 w-auto max-w-[120px] object-contain opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
               <div class="hidden h-8 bg-gray-200 w-24 rounded-full items-center justify-center text-xs text-gray-500 font-bold uppercase tracking-widest">Logo</div>
             </div>
           ))}
@@ -64,7 +64,7 @@ import Button from '../ui/Button.astro';
           <!-- Segundo grupo de logos (Duplicado para loop infinito) -->
           {['logo_descuelgo.webp', 'logo_dialgoo.webp', 'logo_mejora_tu_experiencia.webp', 'logo_parada_visual.webp', 'logo_troncalVOIP.webp'].map((logo) => (
             <div class="flex-shrink-0 flex items-center justify-center w-32">
-              <img src={`/tree/main/public/images/client-logos/${logo}`} alt="Cliente LlamadaAtendida" class="h-8 w-auto max-w-[120px] object-contain opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+              <img src={`public/images/client-logos/${logo}`} alt="Cliente LlamadaAtendida" class="h-8 w-auto max-w-[120px] object-contain opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
               <div class="hidden h-8 bg-gray-200 w-24 rounded-full items-center justify-center text-xs text-gray-500 font-bold uppercase tracking-widest">Logo</div>
             </div>
           ))}
