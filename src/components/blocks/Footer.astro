@@ -1,17 +1,18 @@
 ---
 import { footerNavigation } from '../../config/footerNavigation';
 import { socialLinks } from '../../config/socialLinks';
+import logo from '../../../public/logo.webp';
 import { Icon } from 'astro-icon/components';
 ---
 
 <footer class="bg-gray-900 text-gray-400 pt-16 pb-8">
   <div class="max-w-7xl mx-auto px-6 md:px-8">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-      
+
       <!-- Brand & Social -->
       <div class="flex flex-col gap-6">
         <a href="/" class="flex items-center" aria-label="Inicio">
-           <span class="text-2xl font-extrabold text-white">Llamada<span class="text-accent">Atendida</span></span>
+        <img src={logo.src} alt="Mi Logo" width="150" height="50" />
         </a>
         <p class="text-sm max-w-[280px]">
           Contact Center profesional con IA y equipo humano especializado. Pago por uso, sin costes fijos.
@@ -59,7 +60,7 @@ import { Icon } from 'astro-icon/components';
           ))}
         </ul>
       </div>
-      
+
     </div>
 
     <!-- Contact Quick Info -->

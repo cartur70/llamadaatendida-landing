@@ -12,7 +12,7 @@ import Button from '../ui/Button.astro';
 
     <cost-comparator class="block bg-white p-6 md:p-10 rounded-2xl border border-gray-100 shadow-sm opacity-0 translate-y-10 transition-all duration-700" data-intersect-fade>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-        
+
         <!-- Controles -->
         <div class="flex flex-col gap-6">
           <div>
@@ -22,7 +22,7 @@ import Button from '../ui/Button.astro';
             </label>
             <input type="range" id="input-calls" min="100" max="5000" step="100" value="500" class="w-full accent-primary h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" />
           </div>
-          
+
           <div>
             <label class="flex justify-between text-sm font-semibold text-gray-800 mb-2">
               <span>Duración media (min)</span>
@@ -41,7 +41,7 @@ import Button from '../ui/Button.astro';
 
         <!-- Resultados -->
         <div class="flex flex-col justify-end border-t md:border-t-0 md:border-l border-gray-100 pt-6 md:pt-0 md:pl-10 relative">
-          
+
           <div class="mb-5">
             <span class="text-xs text-gray-500 font-medium uppercase tracking-wider mb-1.5 block">Recepcionista Interno</span>
             <div class="flex items-center gap-3">
@@ -73,7 +73,7 @@ import Button from '../ui/Button.astro';
           Reduce tus costes operativos hasta en un 60% manteniendo una disponibilidad total.
         </p>
         <br />
-        <Button href="/contacto" variant="accent">
+        <Button class="p-4" href="/contacto" variant="accent">
           Quiero empezar a ahorrar
         </Button>
       </div>
@@ -85,14 +85,14 @@ import Button from '../ui/Button.astro';
   class CostComparator extends HTMLElement {
     constructor() {
       super();
-      
+
       const calls = this.querySelector('#input-calls') as HTMLInputElement;
       const duration = this.querySelector('#input-duration') as HTMLInputElement;
       const internalCost = this.querySelector('#input-cost') as HTMLInputElement;
-      
+
       const valCalls = this.querySelector('#val-calls');
       const valDuration = this.querySelector('#val-duration');
-      
+
       const resInternal = this.querySelector('#res-internal');
       const resLA = this.querySelector('#res-la');
       const resSavings = this.querySelector('#res-savings');
@@ -105,14 +105,14 @@ import Button from '../ui/Button.astro';
         const c = parseInt(calls.value);
         const d = parseFloat(duration.value);
         const internal = parseInt(internalCost.value);
-        
+
         if (valCalls) valCalls.textContent = calls.value;
         if (valDuration) valDuration.textContent = duration.value;
 
         const costLA = c * d * TARIFA_MIN;
         const savings = internal - costLA;
         const perc = ((savings / internal) * 100).toFixed(0);
-        
+
         const safeCostLA = Math.max(0, costLA);
         const barWidth = Math.min(100, Math.max(5, (safeCostLA / internal) * 100));
 
@@ -123,14 +123,14 @@ import Button from '../ui/Button.astro';
           resPercentage.textContent = savings > 0 ? `¡${perc}% más económico!` : 'Coste similar o superior';
           resPercentage.className = savings > 0 ? 'text-sm font-bold text-success mt-2' : 'text-sm font-bold text-danger mt-2';
         }
-        
+
         if (barLA) barLA.style.width = `${barWidth}%`;
       };
 
       calls.addEventListener('input', updateValues);
       duration.addEventListener('input', updateValues);
       internalCost.addEventListener('input', updateValues);
-      
+
       // Setup intersection observer for fade-in
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -142,7 +142,7 @@ import Button from '../ui/Button.astro';
           }
         });
       }, { threshold: 0.2 });
-      
+
       observer.observe(this);
     }
   }
